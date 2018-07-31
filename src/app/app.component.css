@@ -7,3 +7,33 @@ h1{
 	font-size: 40px;
 	margin-bottom: 40px;
 }
+
+.column {
+    float: left;
+}
+
+.left {
+    width: 50%;
+}
+
+.right {
+    width: 15%;
+}
+
+.mid {
+    width: 35%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+}
