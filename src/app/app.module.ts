@@ -1,22 +1,46 @@
-import { BrowserModule } from '@angular/platform-browser';
+// import { BrowserModule } from '@angular/platform-browser';
+// import { NgModule } from '@angular/core';
+// import { AgmCoreModule } from '@agm/core';
+
+// import { AppComponent } from './app.component';
+// import { MapComponent } from './map/map.component';
+
+// @NgModule({
+//   declarations: [
+//     AppComponent,
+//     MapComponent
+//   ],
+//   imports: [
+//     BrowserModule,
+//     AgmCoreModule.forRoot({
+//       apiKey: 'AIzaSyAC5kT6DWJ2io2vsw6ZRS9-7kLy5g2xJmQ'
+//     })
+//   ],
+//   providers: [],
+//   bootstrap: [AppComponent]
+// })
+// export class AppModule { }
+
 import { NgModule } from '@angular/core';
-import { AgmCoreModule } from '@agm/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { HelloComponent } from './hello.component';
+import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from './map/map.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MapComponent
-  ],
-  imports: [
+  imports:      [
     BrowserModule,
+    FormsModule,
     AgmCoreModule.forRoot({
+      // please get your own API key here:
+      // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en
       apiKey: 'AIzaSyAC5kT6DWJ2io2vsw6ZRS9-7kLy5g2xJmQ'
     })
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: [ AppComponent, HelloComponent, MapComponent ],
+  bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
