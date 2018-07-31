@@ -1,3 +1,9 @@
-agm-map {
-    height: 400px
+h1{
+	font-family: "Open Sans", arial;
+	font-weight:300;
+	float: left;
+	width: 55%;
+	margin-left: 5px;
+	font-size: 40px;
+	margin-bottom: 40px;
 }
