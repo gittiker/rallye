@@ -6,9 +6,6 @@
   </agm-marker>
 </agm-map> -->
 
-<h1>Angular Google Maps (AGM) Demo</h1>
-<p><a href="https://angular-maps.com/" target="_blank">Official Website</a></p>
-
 <agm-map 
   [latitude]="lat"
   [longitude]="lng"
@@ -32,9 +29,9 @@
     
   </agm-marker>
   
-  <agm-circle [latitude]="lat + 0.3" [longitude]="lng" 
-      [radius]="5000"
-      [fillColor]="'red'"
+  <agm-circle [latitude]="lat" [longitude]="lng" 
+      [radius]="1000"
+      [fillColor]="'light'"
       [circleDraggable]="true"
       [editable]="true">
   </agm-circle>

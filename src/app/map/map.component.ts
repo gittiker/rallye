@@ -34,11 +34,11 @@ import { MouseEvent } from '@agm/core';
 })
 export class MapComponent  {
   // google maps zoom level
-  zoom: number = 8;
+  zoom: number = 15;
   
   // initial center position for the map
-  lat: number = 51.673858;
-  lng: number = 7.815982;
+  lat: number = 50.984025;
+  lng: number = 7.119600;
 
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`)
@@ -48,7 +48,7 @@ export class MapComponent  {
     this.markers.push({
       lat: $event.coords.lat,
       lng: $event.coords.lng,
-      draggable: true
+      draggable: false
     });
   }
   
@@ -58,23 +58,25 @@ export class MapComponent  {
   
   markers: marker[] = [
 	  {
-		  lat: 51.673858,
-		  lng: 7.815982,
-		  label: 'A',
-		  draggable: true
-	  },
-	  {
-		  lat: 51.373858,
-		  lng: 7.215982,
-		  label: 'B',
-		  draggable: false
-	  },
-	  {
-		  lat: 51.723858,
-		  lng: 7.895982,
-		  label: 'C',
-		  draggable: true
-	  }
+		  lat: 50.984025,
+		  lng: 7.119600,
+		  label: 'FH',
+      draggable: false
+      
+    },
+    // Platzhalterwerte
+	  // {
+		  // lat: 50.584025,
+		  // lng: 7.619600,
+		//   label: 'A',
+		//   draggable: true
+	  // },
+	  // {
+		  // lat: 50.684025,
+		  // lng: 7.319600,
+		//   label: 'B',
+		//   draggable: true
+	  // }
   ]
 }
 
@@ -83,5 +85,5 @@ interface marker {
 	lat: number;
 	lng: number;
 	label?: string;
-	draggable: boolean;
+  draggable: boolean;
 }
