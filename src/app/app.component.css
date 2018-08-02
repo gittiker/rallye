@@ -1,11 +1,49 @@
-h1{
-	font-family: "Open Sans", arial;
-	font-weight:300;
-	float: left;
-	width: 55%;
-	margin-left: 5px;
-	font-size: 40px;
-	margin-bottom: 40px;
+.wrapper {
+    background-color: rgba(0, 0, 255, 0.7);
+    padding: 5px;
+    padding-left: 10px;
+    margin-top: 12px;
+    border-radius: 20px;
+}
+
+.d-banner {
+    color: orange;
+    margin: auto;
+}
+
+.d-chat {
+    background-color: grey;
+    border-radius: 15px;
+    text-align: center;
+    margin: auto;
+    margin-top: 8px;
+    height: 100%;
+}
+
+.d-feed {
+    background-color: grey;
+    border-radius: 15px;
+    text-align: center;
+    margin: auto;
+    margin-top: 8px;
+    height: 100%;
+}
+
+.d-padding {
+    padding: 8px 4px;
+}
+
+.d-height {
+    height: 60%;
+}
+
+.top {
+    background-color: rgba(0, 0, 255, 0.8);
+    padding: 5px;
+    border-radius: 25px;
+    height: 60px;
+    text-align: center;
+    font-family: "Calibri";
 }
 
 .column {
@@ -21,7 +59,7 @@ h1{
 }
 
 .mid {
-    width: 35%;
+    width: 25%;
 }
 
 /* Clear floats after the columns */
