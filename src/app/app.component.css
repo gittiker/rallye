@@ -33,6 +33,10 @@
     padding: 8px 4px;
 }
 
+.d-margin {
+    margin-left: 15px
+}
+
 .d-height {
     height: 60%;
 }
@@ -55,7 +59,7 @@
 }
 
 .right {
-    width: 15%;
+    width: 20%;
 }
 
 .mid {
