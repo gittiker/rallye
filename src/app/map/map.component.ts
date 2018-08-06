@@ -1,29 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-map',
-//   templateUrl: './map.component.html',
-//   styleUrls: ['./map.component.css']
-// })
-// export class MapComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-//   }
-//   title = 'tutt-dashboard';
-//   lat = 51.678418;
-//   lng = 7.809007;
-//   locationChosen = false;
-
-//   onChoseLocation(event){
-//     this.lat = event.coords.lat;
-//     this.lng = event.coords.lng;
-//     this.locationChosen = true;
-//   }
-// }
-
-
 import { Component } from '@angular/core';
 import { MouseEvent } from '@agm/core';
 
@@ -63,20 +37,7 @@ export class MapComponent  {
 		  label: 'FH',
       draggable: false
       
-    },
-    // Platzhalterwerte
-	  // {
-		  // lat: 50.584025,
-		  // lng: 7.619600,
-		//   label: 'A',
-		//   draggable: true
-	  // },
-	  // {
-		  // lat: 50.684025,
-		  // lng: 7.319600,
-		//   label: 'B',
-		//   draggable: true
-	  // }
+    }
   ]
 }
 
