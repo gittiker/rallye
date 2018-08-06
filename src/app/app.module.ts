@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
 import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from './map/map.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   imports:      [
@@ -18,7 +19,7 @@ import { MapComponent } from './map/map.component';
       // apiKey: 'AIzaSyDWLloWmmnM74Fvrlm7_EcoKzMrW4Fxhxo' //Maps V2
     })
   ],
-  declarations: [ AppComponent, HelloComponent, MapComponent ],
+  declarations: [ AppComponent, HelloComponent, MapComponent, ChatComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
