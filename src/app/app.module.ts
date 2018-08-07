@@ -7,6 +7,8 @@ import { HelloComponent } from './hello.component';
 import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from './map/map.component';
 
+import { Globals } from './globals';
+
 @NgModule({
   imports:      [
     BrowserModule,
@@ -18,6 +20,7 @@ import { MapComponent } from './map/map.component';
     })
   ],
   declarations: [ AppComponent, HelloComponent, MapComponent ],
-  bootstrap:    [ AppComponent ]
+  bootstrap:    [ AppComponent ],
+  providers:    [ Globals ]
 })
 export class AppModule { }

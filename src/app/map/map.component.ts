@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MouseEvent } from '@agm/core';
-
-import * as firebase from "firebase"
+import { Globals } from '../globals'
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -9,15 +8,8 @@ import * as firebase from "firebase"
 })
 
 export class MapComponent  {
-  constructor(){
-
-    firebase.initializeApp(firebaseConfig)
-  
-    firebase.database().ref("/").once("value", data=>{
-      let dataa = data.exportVal()
-      console.log(dataa.groups)
-      console.log(data.exportVal())
-    })
+  constructor(private globals: Globals) { 
+    console.log(this.globals.db_data)
   }
 
   // google maps zoom level
@@ -26,6 +18,11 @@ export class MapComponent  {
   // initial center position for the map
   lat: number = 50.984025;
   lng: number = 7.119600;
+
+  setMarkers(){
+    
+    // Insert logic loop here
+  }
 
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`)
@@ -62,11 +59,9 @@ interface marker {
   draggable: boolean;
 }
 
-export const firebaseConfig = {
-  apiKey: "AIzaSyBQ_zgFYn4O8pTmvcNPJRCJkK8Vq9bOwo8",
-  authDomain: "bgltour-b529d.firebaseapp.com",
-  databaseURL: "https://bgltour-b529d.firebaseio.com",
-  projectId: "bgltour-b529d",
-  storageBucket: "bgltour-b529d.appspot.com",
-  messagingSenderId: "744135181738"
-};
+interface group {
+  g_name: string;
+  g_lat: number;
+  g_lng: number;
+  label?: string;
+}
