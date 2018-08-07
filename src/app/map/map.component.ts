@@ -1,12 +1,25 @@
 import { Component } from '@angular/core';
 import { MouseEvent } from '@agm/core';
 
+import * as firebase from "firebase"
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: [ './map.component.css' ]
 })
+
 export class MapComponent  {
+  constructor(){
+
+    firebase.initializeApp(firebaseConfig)
+  
+    firebase.database().ref("/").once("value", data=>{
+      let dataa = data.exportVal()
+      console.log(dataa.groups)
+      console.log(data.exportVal())
+    })
+  }
+
   // google maps zoom level
   zoom: number = 15;
   
@@ -48,3 +61,12 @@ interface marker {
 	label?: string;
   draggable: boolean;
 }
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyBQ_zgFYn4O8pTmvcNPJRCJkK8Vq9bOwo8",
+  authDomain: "bgltour-b529d.firebaseapp.com",
+  databaseURL: "https://bgltour-b529d.firebaseio.com",
+  projectId: "bgltour-b529d",
+  storageBucket: "bgltour-b529d.appspot.com",
+  messagingSenderId: "744135181738"
+};
