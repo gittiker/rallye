@@ -1,6 +1,8 @@
 import * as firebase from 'firebase';
+import { Globals } from './globals';
 
 export class Group {
+    dbdata: Globals[];
     id: string;
     name: string;
     location: Adress;
@@ -9,13 +11,6 @@ export class Group {
         this.id = id;
         this.name = name;
         this.location = location;
-    }
-
-    readGroups() {
-        firebase.initializeApp(firebaseConfig)
-        firebase.database().ref("/").once("value", data=>{
-            console.log(data.exportVal())
-        })
     }
 }
 

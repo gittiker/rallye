@@ -3,31 +3,42 @@ import * as firebase from "firebase"
 
 @Injectable()
 export class Globals {
-    db_data:any={test:"hallo"}
+    db_data: any=[]
+
+    test:any = {
+        "type": "Feature",
+        "properties": {
+            "message": "Foo",
+            "iconSize": [60, 60]
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                5,
+                5
+            ]
+        }
+    }
+
+
     constructor(){
 
         firebase.initializeApp(firebaseConfig)
-        firebase.database().ref("/").once("value", data=>{
+        firebase.database().ref("/groups/").on("value", data=>{
             this.db_data = data.exportVal()
-            console.log(data.exportVal())
-            console.log(this.db_data)
+            let userKeys = Object.keys(this.db_data)
+            for(let user of userKeys) {
+            console.log(this.db_data[user].adress.long)
+            }
+
         })
-        // firebase.database().ref("/").once("value", data=>{
-        //     let dataa = data.exportVal()
-        //     // console.log(dataa.groups)
-        //     // console.log(data.exportVal())
-        // })
     }
 
     // OnInit() {
     //     firebase.database().ref("/").once("value", data=>{
     //         this.db_data = data.exportVal()
     //     })
-    // }
-
-   
-    test: string = "Test";
-  
+    // }  
 }
 
 export const firebaseConfig = {
