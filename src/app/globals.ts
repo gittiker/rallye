@@ -1,21 +1,34 @@
 import { Injectable } from '@angular/core';
 import * as firebase from "firebase"
+import { longStackSupport } from 'q';
 
 @Injectable()
 export class Globals {
     db_data: any=[]
+    featureCollection: any=[]
 
-    test:any = {
+    lng: any=0;
+    lat: any=0;
+    g_id: any;
+
+    // GeoJson Template
+    // {
+    //     "type": "FeatureCollection",
+    //     "features": []
+    //   }
+
+    any = {
         "type": "Feature",
         "properties": {
-            "message": "Foo",
-            "iconSize": [60, 60]
+            // "name": "",
+            "marker-color": "#ff0000",
+            "marker-symbol": this.g_id,
         },
         "geometry": {
             "type": "Point",
             "coordinates": [
-                5,
-                5
+                this.lat,
+                this.lng
             ]
         }
     }
@@ -28,7 +41,18 @@ export class Globals {
             this.db_data = data.exportVal()
             let userKeys = Object.keys(this.db_data)
             for(let user of userKeys) {
-            console.log(this.db_data[user].adress.long)
+                
+                this.lng = this.db_data[user].adress.long;
+                this.lat = this.db_data[user].adress.lat;
+                
+                // Extract Group-Number from String
+                var temp = String(this.db_data[user].name);
+                this.g_id = temp.replace( /^\D+/g, '');
+                
+                console.log(this.g_id + " - " + this.lng + " - " + this.lat)
+
+
+            // console.log(this.db_data[user].adress.long)
             }
 
         })
@@ -49,3 +73,7 @@ export const firebaseConfig = {
     storageBucket: "bgltour-b529d.appspot.com",
     messagingSenderId: "744135181738"
   };
+
+  interface GeoJSON {
+      
+  }

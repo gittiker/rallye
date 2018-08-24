@@ -1,23 +1,35 @@
-import { Component } from '@angular/core';
-import { MouseEvent } from '@agm/core';
-import { Globals } from '../globals'
+import { Component, OnInit } from '@angular/core';
+import { GeoJson, FeatureCollection } from '../map';
+import * as mapboxgl from 'mapbox-gl';
+import { MapService } from '../map.service';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: [ './map.component.css' ]
 })
 
-export class MapComponent  {
-  constructor(private globals: Globals) { 
-    console.log(this.globals.db_data)
-  }
+export class MapComponent implements OnInit {
 
-  // google maps zoom level
-  zoom: number = 15;
+    /// default settings
+    map: mapboxgl.Map;
+    style = 'mapbox://styles/mapbox/outdoors-v9';
+    lat = 37.75;
+    lng = -122.41;
+    message = 'Hello World!';
   
-  // initial center position for the map
-  lat: number = 50.984025;
-  lng: number = 7.119600;
+    // data
+    source: any;
+    markers: any;
+
+    constructor(private mapService: MapService) {
+    }
+
+    ngOnInit() {
+      this.markers = this.mapService.getMarkers()
+      this.initializeMap()
+    }
+  
 
   setMarkers(){
     
