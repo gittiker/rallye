@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  
   firebase: {
     apiKey: "AIzaSyBQ_zgFYn4O8pTmvcNPJRCJkK8Vq9bOwo8",
     authDomain: "bgltour-b529d.firebaseapp.com",
@@ -12,6 +13,7 @@ export const environment = {
     storageBucket: "bgltour-b529d.appspot.com",
     messagingSenderId: "744135181738"
   },
+
   mapbox: {
     accessToken: 'pk.eyJ1IjoibWFwbm9vYiIsImEiOiJjamtrMjBrazQxbHByM3ZueGp1Y3pkaWZxIn0.q5ce20FZh7u2tOVBxsomFA'
   }

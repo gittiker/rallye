@@ -11,12 +11,6 @@ export class Globals {
     lat: any=0;
     g_id: any;
 
-    // GeoJson Template
-    // {
-    //     "type": "FeatureCollection",
-    //     "features": []
-    //   }
-
     any = {
         "type": "Feature",
         "properties": {

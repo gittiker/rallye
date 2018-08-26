@@ -13,10 +13,7 @@ export class MapService {
   }
 
   getMarkers(): any[] {
-    const coordinates = [event.lngLat.lng, event.lngLat.lat]
-    const newMarker   = new GeoJson(coordinates, { message: this.message })
-    this.mapService.createMarker(newMarker)
-    // return this.db.list('/markers')
+    // return marker[array]
   }
 
   createMarker(data: GeoJson) {
