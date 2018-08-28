@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
 import { AgmCoreModule } from '@agm/core';
-import { MapComponent } from './map/map.component';
 import { WebcamComponent } from './webcam/webcam.component';
 
 @NgModule({
@@ -18,7 +17,7 @@ import { WebcamComponent } from './webcam/webcam.component';
       apiKey: 'AIzaSyAC5kT6DWJ2io2vsw6ZRS9-7kLy5g2xJmQ'
     })
   ],
-  declarations: [ AppComponent, HelloComponent, MapComponent, WebcamComponent ],
+  declarations: [ AppComponent, HelloComponent, WebcamComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
