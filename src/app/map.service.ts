@@ -12,7 +12,7 @@ export class MapService {
     mapboxgl.accessToken = environment.mapbox.accessToken
   }
 
-  getMarkers(): any[] {
+  getMarkers()/*: any[] */{
     // return marker[array]
   }
 
