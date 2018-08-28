@@ -8,6 +8,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+<script type="text/javascript" language="javascript">
+
+	var newImage = new Image();
+	
+	function refreshImage()
+	{
+		var unique = new Date();
+		newImage.src = "https://www.bergischgladbach.de/img/upload/webcam/webcam-gl.jpg?time=" + unique.getTime();
+		document.images.webcam.src = newImage.src;
+	}
+</script>
 <body>
   <app-root></app-root>
 </body>
