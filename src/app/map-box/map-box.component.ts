@@ -1,126 +1,119 @@
 import { Component, OnInit } from '@angular/core';
-import * as mapboxgl from 'mapbox-gl';
-import { MapService } from '../map.service';
-import { GeoJson, FeatureCollection } from '../map';
-
-
+import * as firebase from 'firebase'; 
+import { environment } from '../../environments/environment';
+// import {mapboxgl} from 'mapbox-gl';
 @Component({
   selector: 'map-box',
   templateUrl: './map-box.component.html',
-  styleUrls: ['./map-box.component.scss']
+  styleUrls: ['./map-box.component.css']
 })
-export class MapBoxComponent implements OnInit{
 
-  /// default settings
-  map: mapboxgl.Map;
-  style = 'mapbox://styles/mapbox/outdoors-v9';
-  lat = 37.75;
-  lng = -122.41;
-  message = 'Hello World!';
+export class MapBoxComponent {
+  db_data: any=[];
+  userKeys: any=[];
+  geojson = {"type": "FeatureCollection","features": []};
 
-  // data
-  source: any;
-  markers: any;
+  lng: any=0;
+  lat: any=0;
+  g_id: any;
 
-  constructor(private mapService: MapService) {
-  }
-
-  ngOnInit() {
-    this.markers = this.mapService.getMarkers()
-    this.initializeMap()
-  }
-
-  private initializeMap() {
-    /// locate the user
-    if (navigator.geolocation) {
-       navigator.geolocation.getCurrentPosition(position => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        this.map.flyTo({
-          center: [this.lng, this.lat]
-        })
-      });
+  any = {
+      "type": "Feature",
+      "properties": {
+          "marker-color": "#ff0000",
+          "marker-symbol": this.g_id,
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [
+              this.lat,
+              this.lng
+          ]
+      }
     }
 
-    this.buildMap()
+  constructor(){
 
-  }
+    firebase.initializeApp(environment.firebase)
+    firebase.database().ref("/groups/").on("value", data=>{
+      this.db_data = data.exportVal()
+      this.userKeys = Object.keys(this.db_data)
+      console.log(this.userKeys)
+      let geojson = {
+        "type": "FeatureCollection",
+        "features": []
+      };
 
-  buildMap() {
-    this.map = new mapboxgl.Map({
-      container: 'map',
-      style: this.style,
-      zoom: 13,
-      center: [this.lng, this.lat]
-    });
+      for(let user of this.userKeys) {
+        
+        this.lng = this.db_data[user].adress.long;
+        this.lat = this.db_data[user].adress.lat;
+              
+        // Extract Group-Number from String
+        var temp = String(this.db_data[user].name);
+        this.g_id = temp.replace( /^\D+/g, '');
+              
+        console.log(this.g_id + " - " + this.lng + " - " + this.lat)
 
-
-    /// Add map controls
-    this.map.addControl(new mapboxgl.NavigationControl());
-
-
-    //// Add Marker on Click
-    this.map.on('click', (event) => {
-      const coordinates = [event.lngLat.lng, event.lngLat.lat]
-      const newMarker   = new GeoJson(coordinates, { message: this.message })
-      this.mapService.createMarker(newMarker)
+        var template =  {
+          "type": "Feature",
+            "properties": {
+              "marker-color": "#ff0000",
+              "marker-symbol": this.g_id,
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                  this.lat,
+                  this.lng
+              ]
+            }
+          }
+          
+          geojson.features.push(template)
+      }
+      console.log(geojson)
     })
-
-
-    /// Add realtime firebase data on map load
-    this.map.on('load', (event) => {
-
-      /// register source
-      this.map.addSource('firebase', {
-         type: 'geojson',
-         data: {
-           type: 'FeatureCollection',
-           features: []
-         }
-      });
-
-      /// get source
-      this.source = this.map.getSource('firebase')
-
-      /// subscribe to realtime database and set data source
-      this.markers.subscribe(markers => {
-          let data = new FeatureCollection(markers)
-          this.source.setData(data)
-      })
-
-      /// create map layers with realtime data
-      this.map.addLayer({
-        id: 'firebase',
-        source: 'firebase',
-        type: 'symbol',
-        layout: {
-          'text-field': '{message}',
-          'text-size': 24,
-          'text-transform': 'uppercase',
-          'icon-image': 'rocket-15',
-          'text-offset': [0, 1.5]
-        },
-        paint: {
-          'text-color': '#f16624',
-          'text-halo-color': '#fff',
-          'text-halo-width': 2
-        }
-      })
-
-    })
-
   }
 
+  updateMarkers() {
+    firebase.database().ref("/groups/").on("value", data=>{
+      this.userKeys = Object.keys(this.db_data)
+      console.log(this.userKeys)
+      let geojson = {
+        "type": "FeatureCollection",
+        "features": []
+      };
 
-  /// Helpers
+      for(let user of this.userKeys) {
+        
+        this.lng = this.db_data[user].adress.long;
+        this.lat = this.db_data[user].adress.lat;
+              
+        // Extract Group-Number from String
+        var temp = String(this.db_data[user].name);
+        this.g_id = temp.replace( /^\D+/g, '');
+              
+        console.log(this.g_id + " - " + this.lng + " - " + this.lat)
 
-  removeMarker(marker) {
-    this.mapService.removeMarker(marker.$key)
-  }
-
-  flyTo(data: GeoJson) {
-    this.map.flyTo({
-      center: data.geometry.coordinates
+        var template =  {
+          "type": "Feature",
+            "properties": {
+              "marker-color": "#ff0000",
+              "marker-symbol": this.g_id,
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                  this.lat,
+                  this.lng
+              ]
+            }
+          }
+          
+          geojson.features.push(template)
+      }
+      console.log(geojson)
     })
   }
 }

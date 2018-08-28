@@ -1,4 +1,4 @@
-<!-- <div class="top">
+<div class="top">
   <h1  class="d-banner">FHDW Stadtrallye</h1>
   <p class="d-banner">DASHBOARD</p>
 </div>
@@ -7,7 +7,7 @@
 <div class="wrapper">
   <div class="row">
     <div class="column left d-padding d-height">
-      <app-map>loading</app-map>
+      <map-box></map-box>
     </div>
 
     <div class="column mid d-padding d-height d-chat d-margin">
@@ -18,10 +18,4 @@
         <p>Newsfeed to be implemented</p>
     </div>
   </div>
-</div> -->
-
-<ul>
-  <li class="text" *ngFor="let item of items | async">
-    {{item.name}}
-  </li>
-</ul>
+</div>
