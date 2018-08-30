@@ -9,8 +9,6 @@ import { environment } from '../../environments/environment';
 })
 
 export class MapBoxComponent {
-  db_data: any=[];
-  userKeys: any=[];
   geojson = {"type": "FeatureCollection","features": []};
 
   lng: any=0;
@@ -33,87 +31,54 @@ export class MapBoxComponent {
     }
 
   constructor(){
-
-    firebase.initializeApp(environment.firebase)
-    firebase.database().ref("/groups/").on("value", data=>{
-      this.db_data = data.exportVal()
-      this.userKeys = Object.keys(this.db_data)
-      console.log(this.userKeys)
-      let geojson = {
-        "type": "FeatureCollection",
-        "features": []
-      };
-
-      for(let user of this.userKeys) {
-        
-        this.lng = this.db_data[user].adress.long;
-        this.lat = this.db_data[user].adress.lat;
-              
-        // Extract Group-Number from String
-        var temp = String(this.db_data[user].name);
-        this.g_id = temp.replace( /^\D+/g, '');
-              
-        console.log(this.g_id + " - " + this.lng + " - " + this.lat)
-
-        var template =  {
-          "type": "Feature",
-            "properties": {
-              "marker-color": "#ff0000",
-              "marker-symbol": this.g_id,
-            },
-            "geometry": {
-              "type": "Point",
-              "coordinates": [
-                  this.lat,
-                  this.lng
-              ]
-            }
-          }
-          
-          geojson.features.push(template)
-      }
-      console.log(geojson)
-    })
+    this.getMarkers();
   }
 
-  updateMarkers() {
+  getMarkers() {
+    firebase.initializeApp(environment.firebase)
     firebase.database().ref("/groups/").on("value", data=>{
-      this.userKeys = Object.keys(this.db_data)
-      console.log(this.userKeys)
+      let dataa = data.exportVal();
+      let userKeys = Object.keys(dataa)
+      // console.log(userKeys)
       let geojson = {
         "type": "FeatureCollection",
         "features": []
       };
 
-      for(let user of this.userKeys) {
-        
-        this.lng = this.db_data[user].adress.long;
-        this.lat = this.db_data[user].adress.lat;
-              
-        // Extract Group-Number from String
-        var temp = String(this.db_data[user].name);
-        this.g_id = temp.replace( /^\D+/g, '');
-              
-        console.log(this.g_id + " - " + this.lng + " - " + this.lat)
+      userKeys.forEach(user => {
+        //console.log(user)
+        try {
+          this.lng = dataa[user].adress.long;
+          this.lat = dataa[user].adress.lat;
+                
+          // Extract Group-Number from String
+          var temp = String(dataa[user].name);
+          this.g_id = temp.replace( /^\D+/g, '');
+                
+          //console.log(this.g_id + " - " + this.lng + " - " + this.lat)
 
-        var template =  {
-          "type": "Feature",
-            "properties": {
-              "marker-color": "#ff0000",
-              "marker-symbol": this.g_id,
-            },
-            "geometry": {
-              "type": "Point",
-              "coordinates": [
-                  this.lat,
-                  this.lng
-              ]
+          var template =  {
+            "type": "Feature",
+              "properties": {
+                "marker-color": "#ff0000",
+                "marker-symbol": this.g_id,
+              },
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    this.lat,
+                    this.lng
+                ]
+              }
             }
-          }
-          
-          geojson.features.push(template)
-      }
-      console.log(geojson)
+            
+            geojson.features.push(template)
+        }
+        catch(e)  {
+          console.log(e);
+        }
+        });
+      //console.log(geojson)
     })
   }
 }
