@@ -108,7 +108,7 @@ export class MapBoxComponent implements OnInit{
     this.map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
-      zoom: 13,
+      zoom: 14,
       center: [this.map_lat, this.map_lng]
     });
   }
