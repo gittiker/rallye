@@ -31,6 +31,10 @@ export class MapBoxComponent {
     }
 
   constructor(){
+    var noofTimeOuts = setTimeout(function() {});
+    for (var i = 0 ; i < noofTimeOuts ; i++) clearTimeout(i);
+    
+    setInterval(this.getMarkers, 25000);
     this.getMarkers();
   }
 
@@ -78,7 +82,7 @@ export class MapBoxComponent {
           console.log(e);
         }
         });
-      //console.log(geojson)
+      console.log(geojson)
     })
   }
 }
