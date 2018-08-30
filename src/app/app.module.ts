@@ -20,7 +20,7 @@ import { MapBoxComponent } from './map-box/map-box.component';
     }),
     AngularFireModule.initializeApp(environment.firebase)
   ],
-  declarations: [ AppComponent, MapBoxComponent ],
+  declarations: [ AppComponent, MapBoxComponent],
   bootstrap:    [ AppComponent ],
   providers:    [ ]
 })

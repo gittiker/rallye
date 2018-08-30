@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase'; 
 import { environment } from '../../environments/environment';
+import * as mapboxgl from 'mapbox-gl';
 // import {mapboxgl} from 'mapbox-gl';
 @Component({
   selector: 'map-box',
@@ -8,7 +9,7 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./map-box.component.css']
 })
 
-export class MapBoxComponent {
+export class MapBoxComponent implements OnInit{
   geojson = {"type": "FeatureCollection","features": []};
 
   lng: any=0;
@@ -31,11 +32,15 @@ export class MapBoxComponent {
     }
 
   constructor(){
-    var noofTimeOuts = setTimeout(function() {});
-    for (var i = 0 ; i < noofTimeOuts ; i++) clearTimeout(i);
+    // var noofTimeOuts = setTimeout(function() {});
+    // for (var i = 0 ; i < noofTimeOuts ; i++) clearTimeout(i);
     
-    setInterval(this.getMarkers, 25000);
+    // setInterval(this.getMarkers, 25000);
+  }
+
+  ngOnInit() {
     this.getMarkers();
+    this.initializeMap();
   }
 
   getMarkers() {
@@ -85,4 +90,33 @@ export class MapBoxComponent {
       console.log(geojson)
     })
   }
+
+  //
+  // MAP
+  //
+  map: mapboxgl.Map;
+  style = 'mapbox://styles/mapnoob/cjkk22gfz4zih2sqkhzjdwbxy'
+  map_lat = 7.126967;
+  map_lng = 50.989371;
+
+  private initializeMap() {
+    mapboxgl.accessToken = environment.mapbox.accessToken;
+    this.buildMap();
+  }
+
+  buildMap() {
+    this.map = new mapboxgl.Map({
+      container: 'map',
+      style: this.style,
+      zoom: 13,
+      center: [this.map_lat, this.map_lng]
+    });
+  }
+
+
+
+
+
+
 }
+
