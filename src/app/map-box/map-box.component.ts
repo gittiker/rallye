@@ -22,10 +22,6 @@ export class MapBoxComponent implements OnInit{
   
   constructor(){
     firebase.initializeApp(environment.firebase)
-    // var noofTimeOuts = setTimeout(function() {});
-    // for (var i = 0 ; i < noofTimeOuts ; i++) clearTimeout(i);
-    
-    // setInterval(this.getMarkers, 25000);
   }
 
   async ngOnInit() {
@@ -52,8 +48,6 @@ export class MapBoxComponent implements OnInit{
           // Extract Group-Number from String
           var temp = String(dataa[user].name);
           var id = temp.replace( /^\D+/g, '');
-                
-          //console.log(this.g_id + " - " + this.lng + " - " + this.lat)
 
           var template =  {
             "type": "Feature",
@@ -77,78 +71,67 @@ export class MapBoxComponent implements OnInit{
         }
         });
         console.log(geojson)
-        // this.placeMarkers(geojson);
-        let mmap = this.map;
-        // add markers to map
-        geojson.features.forEach(function(marker) {
-          // create a DOM element for the marker
-          var el = document.createElement('div');
-          el.className = 'marker';
-          el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
-          el.style.width = '50px';
-          el.style.height = '50px'      // add marker to map
-          new mapboxgl.Marker(el)
-              .setLngLat(marker.geometry.coordinates)
-              .addTo(mmap);
-    })
-
     })
   }
 
   //
   // MAP
   //
-
-
   private initializeMap() {
     mapboxgl.accessToken = environment.mapbox.accessToken;
     this.buildMap();
+
+    var ggeojson = {
+      type: 'FeatureCollection',
+      features: [{
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [-77.032, 38.913]
+        },
+        properties: {
+          title: 'Mapbox',
+          description: 'Washington, D.C.'
+        }
+      },
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [-122.414, 37.776]
+        },
+        properties: {
+          title: 'Mapbox',
+          description: 'San Francisco, California'
+        }
+      }]
+    };
+    var mmap = this.map;
+    // add markers to map
+    ggeojson.features.forEach(function(marker) {
+      // create a HTML element for each feature
+      var el = document.createElement('div');
+      el.className = 'marker';
+
+      // make a marker for each feature and add to the map
+      new mapboxgl.Marker(el)
+      .setLngLat(marker.geometry.coordinates)
+      .addTo(mmap);
+    });
   }
 
   buildMap() {
     this.map = new mapboxgl.Map({
       container: 'map',
-      style: this.style,
-      zoom: 14,
-      center: [this.map_lat, this.map_lng]
+      center: [-96, 37.8],
+      zoom: 3,
+      style: 'mapbox://styles/mapbox/light-v9'
+      // style: this.style,
+      // zoom: 14,
+      // center: [this.map_lat, this.map_lng]
     });
   }
 
   placeMarkers(geojson: any) {
-    // var marker = new mapboxgl.Marker()
-    //   .setLngLat([30.5, 50.5])
-    //   .addTo(this.map);
-    
-    // add markers to map
-    geojson.features.forEach(function(marker) {
-      // create a DOM element for the marker
-      var el = document.createElement('div');
-      el.className = 'marker';
-      // el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
-      el.style.width = '50px';
-      el.style.height = '50px'      // add marker to map
-      new mapboxgl.Marker(el)
-          .setLngLat(marker.geometry.coordinates)
-          .addTo(this.map);
-    })
   }
 }
-
-  //   this.map.on('load', function (mmap: mapboxgl.Map) {
-
-  //     mmap.addLayer({
-  //         "id": "points",
-  //         "type": "symbol",
-  //         "source": {
-  //             "type": "geojson",
-  //             "data": this.geojson
-  //         },
-  //         "layout": {
-  //             // "icon-image": "{icon}-15",
-  //             // "text-field": "{title}",
-  //             // "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-  //             // "text-offset": [0, 0.6],
-  //             // "text-anchor": "top"
-  //         }
-  //     });
-  // })
