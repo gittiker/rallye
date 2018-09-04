@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AgmCoreModule } from '@agm/core';
 
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { MapBoxComponent } from './map-box/map-box.component';
@@ -13,6 +15,7 @@ import { MapBoxComponent } from './map-box/map-box.component';
   imports:      [
     BrowserModule,
     FormsModule,
+    LeafletModule.forRoot(),
     AgmCoreModule.forRoot({
       // please get your own API key here:
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en

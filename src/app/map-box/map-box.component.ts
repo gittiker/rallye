@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase'; 
 import { environment } from '../../environments/environment';
 import * as mapboxgl from 'mapbox-gl';
+
+import { icon, marker, latLng, tileLayer } from 'leaflet';
+import * as L from 'leaflet';
+
 @Component({
   selector: 'map-box',
   templateUrl: './map-box.component.html',
@@ -9,129 +13,75 @@ import * as mapboxgl from 'mapbox-gl';
 })
 
 export class MapBoxComponent implements OnInit{
-  geojson = {"type": "FeatureCollection","features": []};
+  f_lng;f_lat;f_name
+  markers: any=[]
+  
+  // style = 'mapbox://styles/mapnoob/cjkk22gfz4zih2sqkhzjdwbxy'
 
-  lng: any=0;
-  lat: any=0;
-  g_id: any;
-  private map: mapboxgl.Map;
+    // Define our base layers so we can reference them multiple times
+    streetMaps = tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      detectRetina: true,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
   
-  style = 'mapbox://styles/mapnoob/cjkk22gfz4zih2sqkhzjdwbxy'
-  map_lat = 6.9777083; //7.126967;
-  map_lng = 51.053245999999994; //50.989371;
-  
+    // // Marker for the top of FHDW
+    summit = marker([50.983421, 7.1179945999999 ], {
+      icon: icon({
+        iconSize: [ 25, 41 ],
+        iconAnchor: [ 13, 41 ],
+        iconUrl: 'leaflet/marker-icon.png',
+        shadowUrl: 'leaflet/marker-shadow.png'
+       })
+    });
+
+  options = {
+    layers: [this.streetMaps,this.summit],
+    zoom: 15,
+    center: latLng([50.989371, 7.126967 ])
+  };
+
   constructor(){
     firebase.initializeApp(environment.firebase)
+    this.getMarkers()
   }
 
-  async ngOnInit() {
-    await this.getMarkers();
-    this.initializeMap();
+  ngOnInit() {
   }
 
   getMarkers() {
     firebase.database().ref("/groups/").on("value", data=>{
       let dataa = data.exportVal();
       let userKeys = Object.keys(dataa)
-      // console.log(userKeys)
-      let geojson = {
-        "type": "FeatureCollection",
-        "features": []
-      };
 
       userKeys.forEach(user => {
         //console.log(user)
         try {
-          var long = dataa[user].adress.long;
-          var lati = dataa[user].adress.lat;
-                
-          // Extract Group-Number from String
-          var temp = String(dataa[user].name);
-          var id = temp.replace( /^\D+/g, '');
+          this.f_lng = dataa[user].adress.long;
+          this.f_lat = dataa[user].adress.lat;
+          
+          this.f_name = String(dataa[user].name);
+          // var id = temp.replace( /^\D+/g, '');
 
-          var template =  {
-            "type": "Feature",
-              "properties": {
-                "marker-color": "#ff0000",
-                "marker-symbol": id,
-              },
-              "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    lati,
-                    long
-                ]
-              }
-            }
-            
-            geojson.features.push(template)
+          var template = [this.f_name, this.f_lng,this.f_lat ]
+          this.markers.push(template)
         }
-        catch(e)  {
-          console.log(e);
-        }
+        catch(e)  {console.log(e);}
+      });
+      console.log(this.markers)
+
+      let map = document.getElementById("map")
+      for (var i = 0; i < this.markers.length; i++) {
+        var  summit =  marker([50.834211, 7.1179945999999 ], {
+          icon: icon({
+            iconSize: [ 25, 41 ],
+            iconAnchor: [ 13, 41 ],
+            iconUrl: 'leaflet/marker-icon.png',
+            shadowUrl: 'leaflet/marker-shadow.png'
+           })
         });
-        console.log(geojson)
+        this.options.layers.push(summit)
+      }
+      console.log( this.options.layers)
     })
-  }
-
-  //
-  // MAP
-  //
-  private initializeMap() {
-    mapboxgl.accessToken = environment.mapbox.accessToken;
-    this.buildMap();
-
-    var ggeojson = {
-      type: 'FeatureCollection',
-      features: [{
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [-77.032, 38.913]
-        },
-        properties: {
-          title: 'Mapbox',
-          description: 'Washington, D.C.'
-        }
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [-122.414, 37.776]
-        },
-        properties: {
-          title: 'Mapbox',
-          description: 'San Francisco, California'
-        }
-      }]
-    };
-    var mmap = this.map;
-    // add markers to map
-    ggeojson.features.forEach(function(marker) {
-      // create a HTML element for each feature
-      var el = document.createElement('div');
-      el.className = 'marker';
-
-      // make a marker for each feature and add to the map
-      new mapboxgl.Marker(el)
-      .setLngLat(marker.geometry.coordinates)
-      .addTo(mmap);
-    });
-  }
-
-  buildMap() {
-    this.map = new mapboxgl.Map({
-      container: 'map',
-      center: [-96, 37.8],
-      zoom: 3,
-      style: 'mapbox://styles/mapbox/light-v9'
-      // style: this.style,
-      // zoom: 14,
-      // center: [this.map_lat, this.map_lng]
-    });
-  }
-
-  placeMarkers(geojson: any) {
   }
 }
