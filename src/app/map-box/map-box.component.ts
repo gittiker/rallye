@@ -14,7 +14,12 @@ export class MapBoxComponent implements OnInit{
   lng: any=0;
   lat: any=0;
   g_id: any;
-
+  private map: mapboxgl.Map;
+  
+  style = 'mapbox://styles/mapnoob/cjkk22gfz4zih2sqkhzjdwbxy'
+  map_lat = 6.9777083; //7.126967;
+  map_lng = 51.053245999999994; //50.989371;
+  
   constructor(){
     firebase.initializeApp(environment.firebase)
     // var noofTimeOuts = setTimeout(function() {});
@@ -23,8 +28,8 @@ export class MapBoxComponent implements OnInit{
     // setInterval(this.getMarkers, 25000);
   }
 
-  ngOnInit() {
-    this.getMarkers();
+  async ngOnInit() {
+    await this.getMarkers();
     this.initializeMap();
   }
 
@@ -72,17 +77,28 @@ export class MapBoxComponent implements OnInit{
         }
         });
         console.log(geojson)
-        this.placeMarkers(geojson);
+        // this.placeMarkers(geojson);
+        let mmap = this.map;
+        // add markers to map
+        geojson.features.forEach(function(marker) {
+          // create a DOM element for the marker
+          var el = document.createElement('div');
+          el.className = 'marker';
+          el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
+          el.style.width = '50px';
+          el.style.height = '50px'      // add marker to map
+          new mapboxgl.Marker(el)
+              .setLngLat(marker.geometry.coordinates)
+              .addTo(mmap);
+    })
+
     })
   }
 
   //
   // MAP
   //
-  map: mapboxgl.Map;
-  style = 'mapbox://styles/mapnoob/cjkk22gfz4zih2sqkhzjdwbxy'
-  map_lat = 6.9777083; //7.126967;
-  map_lng = 51.053245999999994; //50.989371;
+
 
   private initializeMap() {
     mapboxgl.accessToken = environment.mapbox.accessToken;
