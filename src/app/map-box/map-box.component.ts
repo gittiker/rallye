@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase'; 
 import { environment } from '../../environments/environment';
-import * as mapboxgl from 'mapbox-gl';
 
 import { Icon, icon, Marker, marker } from 'leaflet';
 declare let L;
@@ -18,6 +17,8 @@ export class MapBoxComponent implements OnInit{
     shadowUrl: 'assets/leaflet/images/marker-shadow.png',
   });
   
+  firstMarker = true;
+  layerobj;
   f_lng;f_lat;f_name
   map: any=[];
   // style = 'mapbox://styles/mapnoob/cjkk22gfz4zih2sqkhzjdwbxy'
@@ -30,14 +31,18 @@ export class MapBoxComponent implements OnInit{
     Marker.prototype.options.icon = this.defaultIcon;
     this.map = L.map('map').setView([50.983421, 7.126967], 15);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    this.layerobj = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(this.map);
 
+    setInterval(() => this.getMarkers(), 15000);
     this.getMarkers();
   }
 
   getMarkers() {
+
+    console.log("refresh "+Date.now());
+    if (!this.firstMarker) {this.removeMarker()};
     firebase.database().ref("/groups/").on("value", data=>{
       let dataa = data.exportVal();
       let userKeys = Object.keys(dataa)
@@ -67,21 +72,21 @@ export class MapBoxComponent implements OnInit{
             }
           geojson.push(template)
         }
-        catch(e)  {console.log(e);}
+        catch(e)  
+        {}// {console.log(e);}
       });
-      console.log(geojson);
+      // console.log(geojson);
 
-      L.geoJSON(geojson).addTo(this.map)
-
-      var layerGroup = L.geoJSON(geojson, {
+      this.layerobj = L.geoJSON(geojson, {
         onEachFeature: function (feature, layer) {
           layer.bindPopup('<h1>'+feature.properties.popupContent+'</h1>');
         }
       }).addTo(this.map);
+      this.firstMarker=false
     })
   }
 
   removeMarker() {
-    
+    this.map.removeLayer(this.layerobj);
   }
 }
