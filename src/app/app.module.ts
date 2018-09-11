@@ -3,21 +3,29 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { HelloComponent } from './hello.component';
 import { AgmCoreModule } from '@agm/core';
+
 import { WebcamComponent } from './webcam/webcam.component';
+
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
+// import { MapBoxComponent } from './map-box/map-box.component';
 
 @NgModule({
   imports:      [
     BrowserModule,
     FormsModule,
-    AgmCoreModule.forRoot({
-      // please get your own API key here:
-      // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en
-      apiKey: 'AIzaSyAC5kT6DWJ2io2vsw6ZRS9-7kLy5g2xJmQ'
-    })
+    LeafletModule.forRoot(),
+    // AgmCoreModule.forRoot({
+    //   // please get your own API key here:
+    //   // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en
+    //   apiKey: 'AIzaSyB31tnVHuobHgbwb6uHVoky299RonHCEyo'
+    // }),
+    AngularFireModule.initializeApp(environment.firebase)
   ],
-  declarations: [ AppComponent, HelloComponent, WebcamComponent ],
+  declarations: [ AppComponent, WebcamComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
