@@ -11,6 +11,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
+import { MapBoxComponent } from './map-box/map-box.component';
 // import { MapBoxComponent } from './map-box/map-box.component';
 
 @NgModule({
@@ -25,7 +26,7 @@ import { environment } from '../environments/environment';
     // }),
     AngularFireModule.initializeApp(environment.firebase)
   ],
-  declarations: [ AppComponent, WebcamComponent ],
+  declarations: [ AppComponent, WebcamComponent, MapBoxComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
