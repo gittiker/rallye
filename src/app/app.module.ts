@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 import { MapBoxComponent } from './map-box/map-box.component';
 
 import { NewsfeedComponent } from './newsfeed/newsfeed.component';
+import { ChatComponent } from './chat/chat.component';
 @NgModule({
   imports:      [
     BrowserModule,
@@ -21,7 +22,7 @@ import { NewsfeedComponent } from './newsfeed/newsfeed.component';
     LeafletModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase)
   ],
-  declarations: [ AppComponent, WebcamComponent, MapBoxComponent, NewsfeedComponent ],
+  declarations: [ AppComponent, WebcamComponent, MapBoxComponent, NewsfeedComponent, ChatComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
