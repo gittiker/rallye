@@ -1,13 +1,18 @@
 #frameBorder {
     border: 2px #000;
-    background-color: grey;
+    background-color: lightgrey;
     border-radius: 15px;
     text-align: center;
     margin: auto;
     margin-bottom: 6px;
     height: 100%;
     padding-top: 10px;
-    width: 80%
+    padding-bottom: 5px;
+    width: 80%;
+    color: blue;
+    border: solid;
+    border-color: orange;
+    font-family: 'Calibri'
 }
 .picture{
     width: 135px;
