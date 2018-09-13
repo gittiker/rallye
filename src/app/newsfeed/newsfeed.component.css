@@ -1,0 +1,15 @@
+#frameBorder {
+    border: 2px #000;
+    background-color: grey;
+    border-radius: 15px;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 6px;
+    height: 100%;
+    padding-top: 10px;
+    width: 80%
+}
+.picture{
+    width: 135px;
+    height: 180;
+}

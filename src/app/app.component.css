@@ -6,6 +6,14 @@
     border-radius: 20px;
 }
 
+.webcam {
+    /* text-align: center; */
+    display: block;
+    position: absolute;
+    margin-top: 610px;
+    margin-left: 20px;
+}
+
 .d-banner {
     color: orange;
     margin: auto;
@@ -16,17 +24,18 @@
     border-radius: 15px;
     text-align: center;
     margin: auto;
-    margin-top: 8px;
+    /* margin-top: 8px; */
     height: 100%;
 }
 
 .d-feed {
-    background-color: grey;
+    /* background-color: grey; */
     border-radius: 15px;
     text-align: center;
     margin: auto;
     margin-top: 8px;
     height: 100%;
+    padding-top: 10px;
 }
 
 .d-padding {
