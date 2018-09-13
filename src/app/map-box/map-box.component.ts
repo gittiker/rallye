@@ -16,6 +16,13 @@ export class MapBoxComponent implements OnInit{
     iconUrl: 'assets/leaflet/images/marker-icon.png',
     shadowUrl: 'assets/leaflet/images/marker-shadow.png',
   });
+
+  private FHDWIcon: Icon = icon({
+    iconUrl: 'assets/FHDW_Logo.svg.png',
+    shadowUrl: 'assets/leaflet/images/marker-shadow.png',
+
+    iconSize:     [80, 40], // size of the icon
+  })
   
   firstMarker = true;
   layerobj;
@@ -82,6 +89,7 @@ export class MapBoxComponent implements OnInit{
           layer.bindPopup('<h1>'+feature.properties.popupContent+'</h1>');
         }
       }).addTo(this.map);
+      L.marker([50.983, 7.119], {icon: this.FHDWIcon}).addTo(this.map);
       this.firstMarker=false;
     })
   }
