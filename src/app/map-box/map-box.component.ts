@@ -35,13 +35,13 @@ export class MapBoxComponent implements OnInit{
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(this.map);
 
-    setInterval(() => this.getMarkers(), 15000);
+    setInterval(() => this.getMarkers(), 15000); // ##refresh
     this.getMarkers();
   }
 
   getMarkers() {
 
-    console.log("refresh "+Date.now());
+    console.log("refresh map");
     if (!this.firstMarker) {this.removeMarker()};
     firebase.database().ref("/groups/").on("value", data=>{
       let dataa = data.exportVal();

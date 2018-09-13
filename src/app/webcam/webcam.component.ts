@@ -10,7 +10,7 @@ export class WebcamComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    window.setInterval("refreshImage()", 10000);
+    setInterval("refreshImage()", 15000); // ##refresh
     // console.log("Abfrage @" + Date.now())
   }
 }

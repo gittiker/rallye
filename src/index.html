@@ -19,7 +19,8 @@
 	{
 		var unique = new Date();
 		newImage.src = "https://www.bergischgladbach.de/img/upload/webcam/webcam-gl.jpg?time=" + unique.getTime();
-		document.images.webcam.src = newImage.src;
+    document.images.webcam.src = newImage.src;
+    console.log("refresh webcam");
 	}
 </script>
 <body>
