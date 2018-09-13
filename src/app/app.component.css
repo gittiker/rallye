@@ -1,18 +1,23 @@
 .wrapper {
-    background-color: rgba(0, 0, 255, 0.7);
+    background-color: white;
     padding: 5px;
     padding-left: 10px;
     margin-top: 12px;
     border-radius: 20px;
+
     
 }
 
 .webcam {
     /* text-align: center; */
     display: block;
-    position: absolute;
-    margin-top: 610px;
+   /* position: absolute;*/
+    /* margin-top: 610px; */
+    width: auto;
+    height: 500px;
     margin-left: 20px;
+    float: left;
+    display: inline-block;
 }
 
 .d-banner {
@@ -21,34 +26,36 @@
 }
 
 .d-chat {
-    background-color: grey;
-    border-radius: 15px;
+    background-color: white;
+    border-radius: 30px;
     text-align: center;
-    margin: auto;
+    position: absolute;
+     margin-top:550px;
+    width: 900px;
     /* margin-top: 8px; */
     height: 100%;
     max-height: 800px;
     overflow: auto;
+    border: solid
 }
 
 .d-feed {
     /* background-color: grey; */
     border-radius: 15px;
     text-align: center;
-    margin: auto;
+   
     margin-top: 8px;
-    height: 100%;
     padding-top: 10px;
-    max-height: 800px;
+    max-height: 1340px;
     overflow: auto;
 }
 
 .d-padding {
-    padding: 8px 4px;
+    /* padding: 8px 4px; */
 }
 
 .d-margin {
-    margin-left: 15px
+    /* margin-left: 15px */
 }
 
 .d-height {
@@ -56,7 +63,7 @@
 }
 
 .top {
-    background-color: rgba(0, 0, 255, 0.8);
+    background-color: #24366c;
     padding: 5px;
     border-radius: 25px;
     height: 60px;
@@ -68,16 +75,13 @@
     float: left;
 }
 
-.left {
-    width: 50%;
-}
 
 .right {
-    width: 20%;
+    width: 36%;
 }
 
 .mid {
-    width: 25%;
+    width: 1500px;
 }
 
 /* Clear floats after the columns */
@@ -85,6 +89,7 @@
     content: "";
     display: table;
     clear: both;
+    display:inline;
 }
 
 /* Responsive layout - when the screen is less than 600px wide, make the three columns stack on top of each other instead of next to each other */

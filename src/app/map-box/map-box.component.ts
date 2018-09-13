@@ -35,7 +35,7 @@ export class MapBoxComponent implements OnInit{
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(this.map);
 
-    setInterval(() => this.getMarkers(), 15000); // ##refresh
+    setInterval(() => this.getMarkers(), 5000); // ##refresh
     this.getMarkers();
   }
 
@@ -43,7 +43,7 @@ export class MapBoxComponent implements OnInit{
 
     console.log("refresh map");
     if (!this.firstMarker) {this.removeMarker()};
-    firebase.database().ref("/groups/").on("value", data=>{
+    firebase.database().ref("/groups/").once("value", data=>{
       let dataa = data.exportVal();
       let userKeys = Object.keys(dataa)
 
@@ -82,7 +82,7 @@ export class MapBoxComponent implements OnInit{
           layer.bindPopup('<h1>'+feature.properties.popupContent+'</h1>');
         }
       }).addTo(this.map);
-      this.firstMarker=false
+      this.firstMarker=false;
     })
   }
 

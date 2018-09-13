@@ -1,25 +1,25 @@
 <div class="top">
-  <h1  class="d-banner">FHDW Stadtrallye</h1>
-  <p class="d-banner">DASHBOARD</p>
+  <h1  class="d-banner" style="margin-top: 5px; font-size: 40px;">Stadtrallye - Dashboard</h1>
+  <!-- <p class="d-banner">DASHBOARD</p> -->
 </div>
 
 
-<div class="wrapper">
+<div class="wrapper" >
   <div class="row">
     <div class="column left d-padding d-height">
       <map-box></map-box>
     </div>
-
-    <div class="column mid d-padding d-height d-chat d-margin">
-        <app-chat></app-chat>>
-    </div>
-    
-    <div class="column right d-padding d-height d-feed d-margin">
-        <app-newsfeed></app-newsfeed>
-    </div>
     <div class="webcam">
       <app-webcam></app-webcam>
     </div>
+    <div class="column right d-padding d-height d-feed d-margin">
+      <img src="../assets/FHDW_Logo.svg.png" style="width: 700px; height: auto;">  
+      <app-newsfeed></app-newsfeed>
+    </div>
+    
   </div>
+  <div class="column mid d-padding d-height d-chat d-margin" style="border-color: orange;">
+    <app-chat></app-chat>>
+</div>
 </div>
 

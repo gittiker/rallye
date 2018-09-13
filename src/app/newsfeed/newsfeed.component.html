@@ -1,9 +1,11 @@
 
    <div id="frameBorder" *ngFor="let item of this.dataKeys" style="overflow: auto">
     <img class="picture" src="{{this.dataa[item].url}}">
+    <div style="float:right; margin-top:17%; margin-right:5%; font-size: 20px">
     <div>Gruppe: <strong>{{this.dataa[item].name}}</strong></div>
     <div>Aufgabe: {{this.dataa[item].Aufgabe}}</div>
     <div>Typ: {{this.dataa[item].text}}</div>
     <div>{{this.dataa[item].time}}</div>
+    </div>
    </div>
   
