@@ -1,3 +1,6 @@
-<p>
-  newsfeed works!
-</p>
+<div id="frameBorder" *ngFor="let item of this.dataKeys">
+    <img class="picture" src="{{this.dataa[item].url}}">
+    <div><strong>{{this.dataa[item].name}}</strong></div>
+    <div>{{this.dataa[item].Aufgabe}}</div>
+    <div>{{this.dataa[item].text}}</div>
+   </div>
